@@ -12,7 +12,7 @@ from homeassistant.const import CONF_HOST
 from homeassistant.components import zeroconf
 
 from .const import DOMAIN, LOGGER
-from .devialet_api import DevialetApi
+from devialet.devialet_api import DevialetApi
 
 
 class DevialetFlowHandler(ConfigFlow, domain=DOMAIN):

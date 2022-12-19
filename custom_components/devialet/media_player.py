@@ -23,11 +23,12 @@ from .const import (
     DEFAULT_NAME,
     DEFAULT_SCAN_INTERVAL,
     MANUFACTURER,
-    NORMAL_INPUTS,
     SOUND_MODES,
     LOGGER,
 )
-from .devialet_api import DevialetApi
+
+from devialet.const import NORMAL_INPUTS
+from devialet.devialet_api import DevialetApi
 
 SCAN_INTERVAL = timedelta(seconds=DEFAULT_SCAN_INTERVAL)
 

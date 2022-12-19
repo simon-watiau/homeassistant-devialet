@@ -17,6 +17,7 @@
     "_devialet-http._tcp.local."
   ],
   "requirements": [
-    "aiohttp"
+    "aiohttp",
+    "devialet==1.0.0"
   ]
 }
