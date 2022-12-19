@@ -1,8 +1,7 @@
 # Devialet
-Devialet API Python implementation
+Devialet Home Assistant integration
 
-This is the first working version, a lot of things still need to be improved. 
-Also make sure your Devialet firmware version >= 2.16.1. Otherwise expect functions not to work.
+Make sure your Devialet firmware version >= 2.16.1. Otherwise expect functions not to work.
 
 # Installation instructions
 - Add the `devialet` folder to your `config/custom_components/` folder
