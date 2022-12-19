@@ -18,9 +18,7 @@ Make sure your Devialet firmware version >= 2.16.1. Otherwise expect functions n
 ## Installation instructions
 
 ### HACS
-Adding the repository `https://github.com/fwestenberg/homeassistant-devialet` to your HACS custom repositories can be done by using this My button:
- 
-[![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=westenbergf&repository=homeassistant-devialet)
+Add this repository `https://github.com/fwestenberg/homeassistant-devialet` to your HACS custom repositories (Go to HACS->Integrations->Press `...` top right and choose Custom repositories)
 
 ### Manual
 - Add the `devialet` folder to your `config/custom_components/` folder
