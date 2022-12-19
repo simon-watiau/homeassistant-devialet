@@ -1,13 +1,13 @@
 <h2 align="center">
-  <a href="https://reolink.com"><img src="./logo.png" alt="Reolink logotype" width="200"></a>
+  <a href="https://www.devialet.com"><img src="./logo.png" alt="Devialet logotype" width="200"></a>
   <br>
-  <i>Home Assistant Reolink custom integration</i>
+  <i>Home Assistant Devialet custom integration</i>
   <br>
 </h2>
 
 <p align="center">
   <a href="https://github.com/custom-components/hacs"><img src="https://img.shields.io/badge/HACS-Custom-orange.svg"></a>
-  <img src="https://img.shields.io/github/v/release/fwestenberg/reolink_dev" alt="Current version">
+  <img src="https://img.shields.io/github/v/release/fwestenberg/homeassistant-devialet" alt="Current version">
 </p>
 
 The `devialet` integration allows you to integrate your [Devialet](https://www.devialet.com) devices in Home Assistant.
