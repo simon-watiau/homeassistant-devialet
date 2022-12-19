@@ -1,81 +1,39 @@
-Reolink Python package
-======================
+# Devialet
+Devialet API Python implementation
 
-### Description
+This is the first working version, a lot of things still need to be improved. 
+Also make sure your Devialet firmware version >= 2.16.1. Otherwise expect functions not to work.
 
-This is a package implementing the Reolink IP camera API. Also it’s providing a way to subscribe to Reolink events, so real-time events can be received on a webhook.
+# Installation instructions
+- Add the `devialet` folder to your `config/custom_components/` folder
+- Restart HA
+- The Devialet device(s) will automatically be discovered
+- If discovery did not complete within 1-2 minutes, add the device using the config flow
+- For a stereo setup, only one of the speakers need to be configured
 
-### Prerequisites
+# Known issues:
+- When using Airplay, no media art is available
+- Select source not working
 
-- python3
 
-### Installation
+# Screenshots:
 
-````
-git clone https://github.com/fwestenberg/reolink
-cd reolink/
-pip3 install .
-````
+## Discovery
 
-### Usage
+<img width="297" alt="image" src="https://user-images.githubusercontent.com/47930023/208066307-24cc39eb-6f21-47a5-9674-5e3f0996e4b0.png">
 
-````
-api = camera_api.Api('192.168.1.10', 80, 'user', 'mypassword')
+<img width="418" alt="image" src="https://user-images.githubusercontent.com/47930023/208066552-fcd21bf9-a8ad-400a-8a60-04250e6c296e.png">
 
-# get settings, like ports etc.:
-await api.get_settings()
 
-# Store the subscribe port
-subscribe_port =  api.onvif_port
+## Manual configuration
 
-# get the states:
-await api.get_states()
+<img width="405" alt="image" src="https://user-images.githubusercontent.com/47930023/208067522-3b416cda-a4aa-4d8a-b3a5-fea23b0a81d9.png">
 
-# print some state value:
-print(api.ir_state)
 
-# enable the infrared lights:
-await api.set_ir_lights(True)
+## Device overview
 
-# enable the spotlight:
-await api.set_spotlight(True)
+<img width="825" alt="image" src="https://user-images.githubusercontent.com/47930023/208066755-b5c072bd-1a27-4947-be64-90d6a4e87c7d.png">
 
-# enable the siron:
-await api.set_sirenTrue)
+<img width="563" alt="image" src="https://user-images.githubusercontent.com/47930023/208066926-ee08cb60-29f1-4b33-950f-edc6ab5366c9.png">
 
-# logout
-await api.logout()
-
-# Now subscribe to events, suppose our webhook url is http://192.168.1.11/webhook123
-
-sman = subscription_manager.Manager('192.168.1.10', subscribePort, ' user', 'mypassword')
-await sman.subscribe('http://192.168.1.11/webhook123')
-
-# After some minutes check the renew timer (keep the eventing alive):
-if (sman.renewTimer <= 100):
-    await sman.renew()
-
-# Unsubscribe
-await sman.unsubscribe()
-````
-
-### Example
-
-This is an example of the usage of the API. In this case we want to retrive and print the Mac Address of the NVR.
-````
-from reolink.camera_api import Api
-import asyncio
-
-async def print_mac_address():
-    # initialize the api
-    api = Api('192.168.1.109', 80, 'admin', 'admin1234')
-    # get settings
-    await api.get_settings()
-    # print mac address
-    print(api._mac_address)
-    # close the api
-    await api.logout()
-
-if __name__ == "__main__":
-    asyncio.run(print_mac_address())
-````
+<img width="488" alt="image" src="https://user-images.githubusercontent.com/47930023/208067167-a7ea516b-38f5-4cc8-84a0-6dffc8ed0639.png">
