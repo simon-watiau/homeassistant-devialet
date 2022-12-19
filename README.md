@@ -1,5 +1,5 @@
 <h2 align="center">
-  <a href="https://www.devialet.com"><img src="./logo.png" alt="Devialet logotype" width="200"></a>
+  <a href="https://www.devialet.com"><img src="./logo@2x.png" alt="Devialet logotype" width="200"></a>
   <br>
   <i>Home Assistant Devialet custom integration</i>
   <br>
