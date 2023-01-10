@@ -2,8 +2,8 @@
 import logging
 from typing import Final
 
-DOMAIN: Final = "devialet"
 DEFAULT_NAME: Final = "Devialet"
+DOMAIN: Final = "devialet"
 DEFAULT_SCAN_INTERVAL = 5
 MANUFACTURER: Final = "Devialet"
 LOGGER = logging.getLogger(__package__)
