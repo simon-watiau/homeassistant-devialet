@@ -9,7 +9,7 @@ from homeassistant.components.media_player import (
     MediaPlayerEntityFeature,
     MediaPlayerState,
 )
-from homeassistant.const import CONF_HOST
+from homeassistant.const import CONF_HOST, CONF_NAME
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
@@ -20,7 +20,6 @@ from homeassistant.components.persistent_notification import DOMAIN as PN_DOMAIN
 
 from .const import (
     DOMAIN,
-    DEFAULT_NAME,
     DEFAULT_SCAN_INTERVAL,
     MANUFACTURER,
     SOUND_MODES,
@@ -35,7 +34,6 @@ SCAN_INTERVAL = timedelta(seconds=DEFAULT_SCAN_INTERVAL)
 SUPPORT_DEVIALET = (
     MediaPlayerEntityFeature.VOLUME_SET
     | MediaPlayerEntityFeature.VOLUME_MUTE
-    | MediaPlayerEntityFeature.TURN_ON
     | MediaPlayerEntityFeature.TURN_OFF
     | MediaPlayerEntityFeature.SELECT_SOURCE
     | MediaPlayerEntityFeature.SELECT_SOUND_MODE
@@ -58,7 +56,11 @@ async def async_setup_entry(
     session = async_get_clientsession(hass)
 
     async_add_entities(
-        [DevialetDevice(entry.data[CONF_HOST], session)],
+        [
+            DevialetDevice(
+                entry.data[CONF_HOST], entry.data[CONF_NAME], entry.unique_id, session
+            )
+        ],
         update_before_add=True,
     )
 
@@ -66,31 +68,23 @@ async def async_setup_entry(
 class DevialetDevice(MediaPlayerEntity):
     """Representation of a Devialet device."""
 
-    def __init__(self, host, session):
+    def __init__(self, host, name, serial, session):
         """Initialize the Devialet device."""
         self._api = DevialetApi(host, session)
-        self._name = DEFAULT_NAME
+        self._name = name
+        self._serial = serial
         self._muted = False
 
     async def async_update(self):
         """Get the latest details from the device."""
-
-        if not await self._api.async_update():
-            return False
-        return self._api.is_available
+        await self._api.async_update()
 
     @property
     def device_info(self) -> DeviceInfo:
         """Return the device info."""
-        if not self._api.is_available:
-            return None
-
         return DeviceInfo(
-            identifiers={
-                # Serial numbers are unique identifiers within a specific domain
-                (DOMAIN, self._api.serial)
-            },
-            name=self._api.device_name,
+            identifiers={(DOMAIN, self._serial)},
+            name=self._name,
             manufacturer=MANUFACTURER,
             model=self._api.model,
             sw_version=self._api.version,
@@ -99,12 +93,12 @@ class DevialetDevice(MediaPlayerEntity):
     @property
     def name(self):
         """Return the name of the device."""
-        return self._api.device_name
+        return self._name
 
     @property
     def unique_id(self):
         """Return the unique id of the device."""
-        return self._api.serial
+        return self._serial
 
     @property
     def state(self) -> MediaPlayerState | None:
@@ -135,7 +129,6 @@ class DevialetDevice(MediaPlayerEntity):
     @property
     def source_list(self):
         """Return the list of available input sources."""
-
         return self._api.source_list
 
     @property

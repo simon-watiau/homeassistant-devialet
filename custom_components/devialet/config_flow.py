@@ -8,10 +8,10 @@ import voluptuous as vol
 from homeassistant.config_entries import ConfigFlow
 from homeassistant.data_entry_flow import FlowResult
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
-from homeassistant.const import CONF_HOST
+from homeassistant.const import CONF_HOST, CONF_NAME
 from homeassistant.components import zeroconf
 
-from .const import DOMAIN, LOGGER
+from .const import DEFAULT_NAME, DOMAIN, LOGGER
 from devialet.devialet_api import DevialetApi
 
 
@@ -50,7 +50,12 @@ class DevialetFlowHandler(ConfigFlow, domain=DOMAIN):
 
         return self.async_show_form(
             step_id="user",
-            data_schema=vol.Schema({vol.Required(CONF_HOST): str}),
+            data_schema=vol.Schema(
+                {
+                    vol.Required(CONF_HOST): str,
+                    vol.Optional(CONF_NAME, default=DEFAULT_NAME): str,
+                }
+            ),
             errors=errors,
         )
 
@@ -88,9 +93,7 @@ class DevialetFlowHandler(ConfigFlow, domain=DOMAIN):
             else:
                 return self.async_create_entry(
                     title=title,
-                    data={
-                        CONF_HOST: self._host,
-                    },
+                    data={CONF_HOST: self._host, CONF_NAME: self._name},
                 )
 
         return self.async_show_form(
