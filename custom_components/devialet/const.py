@@ -4,7 +4,7 @@ from typing import Final
 
 DEFAULT_NAME: Final = "Devialet"
 DOMAIN: Final = "devialet"
-DEFAULT_SCAN_INTERVAL = 5
+DEFAULT_SCAN_INTERVAL = 1
 MANUFACTURER: Final = "Devialet"
 LOGGER = logging.getLogger(__package__)
 

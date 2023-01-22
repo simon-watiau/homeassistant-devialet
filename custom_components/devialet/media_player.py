@@ -205,11 +205,7 @@ class DevialetDevice(MediaPlayerEntity):
     @property
     def source(self):
         """Return the current input source."""
-        source = self._api.source
-
-        for pretty_name, name in NORMAL_INPUTS.items():
-            if source == name:
-                return pretty_name
+        return self._api.source
 
     @property
     def sound_mode(self):
@@ -294,4 +290,4 @@ class DevialetDevice(MediaPlayerEntity):
 
     async def async_select_source(self, source: str) -> None:
         """Select input source."""
-        # Not available yet?
+        await self._api.async_select_source(source)
